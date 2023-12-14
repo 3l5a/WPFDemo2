@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace E_Thievet_WPFApp.ViewModels
 {
@@ -97,9 +98,9 @@ namespace E_Thievet_WPFApp.ViewModels
         #endregion
 
         #region ListeMessages
-        // Faire une liste d’objet de type Message
+        // Faire une liste d’objets de type Message
 
-        public ObservableCollection<Message> MessageList { get; set; } 
+        public ObservableCollection<Message> MessageList { get; set; }
 
 
         public ObservableCollection<Message> FillList()
@@ -161,17 +162,6 @@ namespace E_Thievet_WPFApp.ViewModels
             }
         }
 
-        //public ICommand UpdateMessage
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(param =>
-        //        {
-
-        //        }, param => MessageList.Count>0);
-        //    }
-        //}
-
         public ICommand DeleteMessage
         {
             get
@@ -179,12 +169,14 @@ namespace E_Thievet_WPFApp.ViewModels
                 return new RelayCommand(param =>
                 {
                     MessageList.RemoveAt(0);
-                }, param => MessageList.Count>0);
+                }, param => MessageList.Count > 0);
             }
         }
         #endregion
 
-        #region Bonus
+        #region Bonus1
+
+        public int SelectedItem { get; set; }
 
         public ICommand DeleteSelected
         {
@@ -192,10 +184,55 @@ namespace E_Thievet_WPFApp.ViewModels
             {
                 return new RelayCommand(param =>
                 {
-
+                    MessageList.RemoveAt(SelectedItem);
                 });
             }
         }
+        #endregion
+
+        #region Bonus2
+        private int _number;
+        public int Number
+        {
+            get { return _number; }
+            set
+            {
+                _number = value;
+                OnPropertyChanged("Number");
+            }
+        }
+
+        public ICommand ReplaceNumber
+        {
+            get
+            {
+                return new RelayCommand(param =>
+                {
+
+                    Number = Random.Shared.Next(0, 100);
+                });
+            }
+        }
+        #endregion
+
+        #region TemplateDeleteMessageBtn
+
+        public RelayCommand DeleteOnMessage
+        {
+            get
+            {
+                return new RelayCommand(param =>
+                {
+                    MessageList.Remove((Message)param);
+                });
+            }
+        }
+        #endregion
+
+        #region CheminsImages
+
+        public ObservableCollection<string> ImagePathList { get; set; } = ["Resources/bulbasaur.png", "Resources/charmander.png", "Resources/pikachu.png", "Resources/psykokwak.png"];
+        
         #endregion
     }
 }

@@ -9,7 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
+    <None Remove="Resources\bulbasaur.png" />
+    <None Remove="Resources\charmander.png" />
+    <None Remove="Resources\pikachu.png" />
+    <None Remove="Resources\psykokwak.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\bulbasaur.png" />
+    <Resource Include="Resources\charmander.png" />
+    <Resource Include="Resources\pikachu.png" />
+    <Resource Include="Resources\psykokwak.png" />
   </ItemGroup>
 
 </Project>

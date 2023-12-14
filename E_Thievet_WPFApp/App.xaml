@@ -2,8 +2,26 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:E_Thievet_WPFApp"
+             xmlns:converters="clr-namespace:E_Thievet_WPFApp.Converters"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
-         
+        <converters:IntToColorConverter x:Key="IntToColorConverter" />
+        <converters:DateToString x:Key="DateToString" />
+        <DataTemplate x:Key="MessageListTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Content}" Foreground="DarkRed"></TextBlock>
+                <TextBlock Text="{Binding Emitter}" Foreground="DarkSalmon"></TextBlock>
+                <TextBlock Text="{Binding Date, Converter={StaticResource DateToString}}" Foreground="Olive"></TextBlock>
+
+                <Button Content="Corbeille" Command="{Binding DataContext.DeleteOnMessage, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Mode=OneWay}" CommandParameter="{Binding .}"></Button>
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ImagePathTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding .}" Stretch="UniformToFill" Height="100" Width="100"></Image>
+            </StackPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>

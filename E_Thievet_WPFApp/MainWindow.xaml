@@ -3,23 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:E_Thievet_WPFApp"
+        xmlns:local="clr-namespace:E_Thievet_WPFApp" 
+        xmlns:viewmodels="clr-namespace:E_Thievet_WPFApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel1}"
         mc:Ignorable="d"
         Title="E_Thiévet_WPF" Height="450" Width="800">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding Test}"></TextBlock>
-            <TextBox Text="{Binding Test, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button Content="Changer le texte" Command="{Binding EditItem}"></Button>
-            <ListBox ItemsSource="{Binding MyList}"></ListBox>
-            <Button Command="{Binding AddItem}" Content="Ajouter un élément"></Button>
-            <Button Command="{Binding UpdateItem}"  Content="Modifier 1er"></Button>
-            <Button Command="{Binding DeleteItem}" Content="Supprimer 1er"></Button>
-            <ListBox SelectedIndex="{Binding DeleteSelected}" ItemsSource="{Binding MessageList}"></ListBox>
-            <TextBox Text="{Binding InputContent, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-            <TextBox Text="{Binding InputEmitter, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-            <Button Content="Ajouter votre message" Command="{Binding AddMessage}"></Button>
-            <Button Content="Supprimer le premier message" Command="{Binding DeleteMessage}"></Button>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel>
+
+                <TextBlock Text="{Binding Test}"></TextBlock>
+                <TextBox Text="{Binding Test, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Content="Changer le texte" Command="{Binding EditItem}"></Button>
+
+                <ListBox ItemsSource="{Binding MyList}"></ListBox>
+                <Button Command="{Binding AddItem}" Content="Ajouter un élément"></Button>
+                <Button Command="{Binding UpdateItem}"  Content="Modifier 1er"></Button>
+                <Button Command="{Binding DeleteItem}" Content="Supprimer 1er"></Button>
+
+                <ListBox SelectedIndex="{Binding MessageIndex}" ItemsSource="{Binding MessageList}" ItemTemplate="{StaticResource MessageListTemplate}"></ListBox>
+                <TextBox Text="{Binding InputContent, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <TextBox Text="{Binding InputEmitter, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <Button Content="Ajouter votre message" Command="{Binding AddMessage}"></Button>
+                <Button Content="Supprimer le premier message" Command="{Binding DeleteMessage}"></Button>
+                <Button Content="Supprimer le message sélectionné" Command="{Binding DeleteSelected}"></Button>
+
+                <TextBlock Text="{Binding Number}" Foreground="{Binding Number, Converter={StaticResource IntToColorConverter}}"></TextBlock>
+                <Button Command="{Binding ReplaceNumber}" Content="Chiffre aléatoire"></Button>
+
+                <ListBox ItemsSource="{Binding ImagePathList}" ItemTemplate="{StaticResource ImagePathTemplate}" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
